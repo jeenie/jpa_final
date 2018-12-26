@@ -16,6 +16,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="${R}res/common.js"></script>
+<link rel="stylesheet" href="${R}res/common.css">
 </head>
 <body>
 	<div class="container">
@@ -63,7 +65,7 @@
 			</thead>
 			<tbody>
 				<c:forEach var="product" items="${list}">
-					<tr>
+					<tr data-url="edit?id=${product.id}&${ pagination.queryString }">
 						<td>${product.id}</td>
 						<td>${product.productCode}</td>
 						<td>${product.productName}</td>

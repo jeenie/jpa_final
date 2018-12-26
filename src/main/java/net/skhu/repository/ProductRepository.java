@@ -7,6 +7,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import net.skhu.domain.Product;
 import net.skhu.model.Option;
@@ -36,4 +39,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	
 	public Page<Product> findByProductNameStartingWith(String product, Pageable pageable);
 	public Page<Product> findByCategoryContaining(String category, Pageable pageable);
+
+	@Modifying(clearAutomatically = true)
+	@Query("UPDATE Product e SET e.productCode = :productCode, e.productName = :productName, e.standardCost = :standardCost, e.listPrice = :listPrice, e.quantity = :quantity, e.category = :category WHERE e.id = :id")
+	public void updateProduct(@Param("id") int id, @Param("productCode") String productCode, @Param("productName") String productName, @Param("standardCost") Double standardCost, @Param("listPrice") Double listPrice, @Param("quantity") String quantity, @Param("category") String category);
+	
 }
